@@ -3,13 +3,25 @@ using System.Collections;
 
 public class AttachLaserPointerCollider : MonoBehaviour {
 
+    public SteamVR_LaserPointer LaserPointerScript;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
+        if (LaserPointerScript == null)
+        {
+            LaserPointerScript = GetComponent<SteamVR_LaserPointer>();
+        }
         
-        var LaserPointerScript = GetComponent<SteamVR_LaserPointer>();
-        var laser = LaserPointerScript.pointer;
+        if (!LaserPointerScript.addRigidBody)
+        {
+            Debug.Log("Please set true in addRigidBody ");
+            BoxCollider collider = LaserPointerScript.pointer.AddComponent<BoxCollider>();
+            collider.isTrigger = true;
+            Rigidbody rigidBody = LaserPointerScript.pointer.AddComponent<Rigidbody>();
+            rigidBody.isKinematic = true;
+        }
+        GameObject laser = LaserPointerScript.pointer;
         laser.AddComponent<LaserPoniterCollider>();
         
         /*
