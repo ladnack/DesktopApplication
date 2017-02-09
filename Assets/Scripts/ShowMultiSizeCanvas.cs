@@ -8,6 +8,7 @@ public class ShowMultiSizeCanvas : MonoBehaviour {
     public Canvas canvas;
     public float horizontalDegree = 30.0f;
 	public float verticalDegree = 30.0f;
+    public float distance = 10.0f;
 
 
 	// Use this for initialization
@@ -35,7 +36,7 @@ public class ShowMultiSizeCanvas : MonoBehaviour {
 
 
         // CanvasをMainCamera正面に配置
-        canvas.ReconfigureToScreenToWorldSpace(mainCamera, 10.0f);
+        canvas.ReconfigureToScreenToWorldSpace(mainCamera, distance);
 
 		// 距離を設定し、それに対応してAutoSizingする
 		canvas.AutoSizingFor(10.0f);
