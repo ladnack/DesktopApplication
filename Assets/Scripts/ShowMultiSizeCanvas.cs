@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public class ShowMultiSizeCanvas : MonoBehaviour {
 
 	public Camera mainCamera;
-	public float horizontalDegree = 30.0f;
+    public Canvas canvas;
+    public float horizontalDegree = 30.0f;
 	public float verticalDegree = 30.0f;
 
 
@@ -18,11 +19,23 @@ public class ShowMultiSizeCanvas : MonoBehaviour {
 			mainCamera = GameObject.Find ("Main Camera").GetComponent<Camera> ();
 		}
 
-		//Canvas canvas = CreateCanvasObject ().GetComponent<Canvas> ();
-		Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        if (canvas == null)
+        {
+            Debug.Log("This canvas is null.");
+            // Canvasを探す
+            canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 
-		// CanvasをMainCamera正面に配置
-		canvas.ReconfigureToScreenToWorldSpace(mainCamera, 10.0f);
+            if (canvas == null)
+            {
+                // Canvasを生成する
+                canvas = CreateCanvasObject ().GetComponent<Canvas> ();
+            }
+            
+        }
+
+
+        // CanvasをMainCamera正面に配置
+        canvas.ReconfigureToScreenToWorldSpace(mainCamera, 10.0f);
 
 		// 距離を設定し、それに対応してAutoSizingする
 		canvas.AutoSizingFor(10.0f);
